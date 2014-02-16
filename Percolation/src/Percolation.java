@@ -28,27 +28,22 @@ public class Percolation {
 		this.openMatrix = new boolean[N][N];             // initiate the openMatrix N*N to be false;
 		this.percolationSize = N;
 		
-		this.initiatesPseudoTop();
-		this.initiatesPseudoBottom();
+//		this.initiatesPseudoTop();
+//		this.initiatesPseudoBottom();
 	}
 
-	private void initiatesPseudoTop() {
+	private void initiatesPseudoTop(int i, int j) {
 		// TODO Auto-generated method stub
-		int N = this.percolationSize;
-		for(int i = 1; i <= N; i++)
-		{
-			this.wquf.union(0, i);
-			this.wqufNoBottom.union(0, i);
-		}
-	}
-
-	private void initiatesPseudoBottom() {
+		int percolateId = this.xyTo1(i, j);
+		this.wquf.union(0, percolateId);
+		this.wqufNoBottom.union(0, percolateId);
+	}  
+ 
+	private void initiatesPseudoBottom(int i, int j) {
 		// TODO Auto-generated method stub
-		int N = this.percolationSize;
-		for(int i = 1; i <= N; i++)
-		{
-			this.wquf.union(N*N + 1, N*N + 1 - i);
-		}
+		int N = this.percolationSize;  
+		int percolateId = this.xyTo1(i, j);
+		this.wquf.union(N * N + 1, percolateId);
 	}
 
 	public void open(int i, int j) // open site (row i, column j) if it is not
