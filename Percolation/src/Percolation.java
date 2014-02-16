@@ -62,7 +62,7 @@ public class Percolation {
 		{
 			this.initiatesPseudoTop(i, j);
 		}
-		if(j == 1)
+		if(i == this.percolationSize)
 		{
 			this.initiatesPseudoBottom(i, j);
 		}

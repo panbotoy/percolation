@@ -6,7 +6,7 @@ public class PercolationStats {
 	
 	private double mean;
 	private double stddev;
-	private Percolation percolation;
+
 	private double [] prob;
 	private int sampleSize;
 	private int grid;
@@ -19,9 +19,9 @@ public class PercolationStats {
 		double stddev = percolationStats.stddev();
 		double confidenceHi = percolationStats.confidenceHi();
 		double confidenceLo = percolationStats.confidenceLo();
-		StdOut.printf("%s                    = %f\n", "mean", mean);
-		StdOut.printf("%s                    = %f\n", "stddev", stddev);
-		StdOut.printf("%s                    = %f\n", "95% confidence interval", confidenceLo, confidenceHi);
+		StdOut.printf("%-24s= %.17f\n", "mean", mean);
+		StdOut.printf("%-24s= %.17f\n", "stddev", stddev);
+		StdOut.printf("%-24s= %.17f, %.17f\n", "95% confidence interval", confidenceLo, confidenceHi);
 	}
 
 	public PercolationStats(int N, int T) {
@@ -34,23 +34,23 @@ public class PercolationStats {
 		this.prob = new double [T];
 		for(int i = 0; i < T ; i ++)
 		{
-			this.percolation = new Percolation(N);
 			prob[i] = this.getPercolationResult();
 		}
 	}
 
 	private double getPercolationResult() {
 		// TODO Auto-generated method stub
+		Percolation percolation = new Percolation(this.grid);
 		int openedSites = 0;
 		int gridI = StdRandom.uniform(1, this.grid + 1);
 		int gridJ = StdRandom.uniform(1, this.grid) + 1;
-		while (!this.percolation.percolates()){
-			while(this.percolation.isOpen(gridI, gridJ))
+		while (!percolation.percolates()){
+			while(percolation.isOpen(gridI, gridJ))
 			{
 				gridI = StdRandom.uniform(1, this.grid + 1);
 				gridJ = StdRandom.uniform(1, this.grid + 1);
 			}
-			this.percolation.open(gridI, gridJ);
+			percolation.open(gridI, gridJ);
 			openedSites++ ;
 		}
 		double result = 1.0 * openedSites / (this.grid * this.grid);
@@ -77,7 +77,7 @@ public class PercolationStats {
 
 	public double confidenceHi() {
 		// returns upper bound of the 95% confidence interval
-		double confidenceHi = this.mean - 1.96 * this.stddev / Math.sqrt(this.sampleSize);
+		double confidenceHi = this.mean + 1.96 * this.stddev / Math.sqrt(this.sampleSize);
 		return confidenceHi;
 	}
 }
