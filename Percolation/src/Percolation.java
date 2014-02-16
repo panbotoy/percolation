@@ -58,6 +58,14 @@ public class Percolation {
 			this.unionNeighbors(i , j );         // union this site with its open neighbors
 		}
 		//System.out.println("Open site (" + i + ", " + j + ") " + " now the site is " + this.percolates());
+		if(i == 1)
+		{
+			this.initiatesPseudoTop(i, j);
+		}
+		if(j == 1)
+		{
+			this.initiatesPseudoBottom(i, j);
+		}
 	}
 
 	private void unionNeighbors(int i, int j) {
