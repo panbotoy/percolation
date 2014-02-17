@@ -6,7 +6,8 @@ public class PercolationStats {
 	
 	private double mean;
 	private double stddev;
-
+	private double confidenceLo;
+	private double confidenceHi;
 	private double [] prob;
 	private int sampleSize;
 	private int grid;
@@ -71,13 +72,13 @@ public class PercolationStats {
 
 	public double confidenceLo() {
 		// returns lower bound of the 95% confidence interval
-		double confidenceLo = this.mean - 1.96 * this.stddev / Math.sqrt(this.sampleSize);
-		return confidenceLo;
+		this.confidenceLo = this.mean - 1.96 * this.stddev / Math.sqrt(this.sampleSize);
+		return this.confidenceLo;
 	}
 
 	public double confidenceHi() {
 		// returns upper bound of the 95% confidence interval
-		double confidenceHi = this.mean + 1.96 * this.stddev / Math.sqrt(this.sampleSize);
-		return confidenceHi;
+		this.confidenceHi = this.mean + 1.96 * this.stddev / Math.sqrt(this.sampleSize);
+		return this.confidenceHi;
 	}
 }
